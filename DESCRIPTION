@@ -2,11 +2,14 @@ Package: tirisfal
 Title: Basic Spatial Data Processing, Analytics and Visualisation
 Version: 0.0.0.9000
 Authors@R: 
-    person("Andew", "Schwenke", , "andrew.schwenke@csiro.com", 
+    person("Andew", "Schwenke", , "andrew.schwenke@gmail.com", 
       role = c("aut", "cre"),
       comment = c(ORCID = "0000-0002-5281-0115"))
-Description: Utility package developed for internal workflow use. Provides functions for standardising spatial data and generating summary tables and figures. Includes custom handling to allow use of ArcGIS colour tables in `.lyr` format.
+Description: Utility package for spatial workflows. Provides functions for standardising spatial data and generating summary tables and figures. Includes custom handling to allow use of ArcGIS colour tables in `.lyr` format.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

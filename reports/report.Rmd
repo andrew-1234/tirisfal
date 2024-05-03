@@ -1,0 +1,28 @@
+---
+title: "Report"
+output: pdf_document
+params:
+  fullAnalysis: FALSE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_knit$set(root.dir = here::here())
+knitr::opts_chunk$set(
+  echo = TRUE,
+  fig.path = "figs-first/"
+)
+```
+
+```{r params}
+if (params$fullAnalysis) {
+  print("Full analysis")
+} else {
+  print("cached analysis")
+}
+```
+
+```{r cars}
+summary(cars)
+plot(cars)
+```
+
