@@ -19,7 +19,7 @@ project_options <- function(raw = "./data/raw",
   )
 
   options <- structure(options, class = "glades")
-
+  # options <- normalise_dir_paths(options)
   if (setup) {
     setup(options)
   }
@@ -36,6 +36,46 @@ project_options <- function(raw = "./data/raw",
 #' @export
 setup <- function(x, ...) {
   UseMethod("setup")
+}
+
+#' Import complete project options config from a json file
+#' @export
+import_options <- function(file, setup = FALSE) {
+  stopifnot(is.character(file))
+  stopifnot(file.exists(file))
+
+  options <- jsonlite::fromJSON(file)
+
+  stopifnot(
+    "raw_base_dir" %in% names(options),
+    "interim_base_dir" %in% names(options),
+    "processed_base_dir" %in% names(options)
+  )
+  if (setup) {
+    setup(options)
+  }
+  validate_paths(options)
+
+  stopifnot("collection" %in% names(options))
+  if (length(options$collection) > 0) {
+    stopifnot(
+      all(
+        sapply(options$collection, function(x) "path" %in% names(x))
+      )
+    )
+  }
+  options <- structure(options, class = "glades")
+  # options <- normalise_dir_paths(options)
+  # options <- normalise_collection_paths(options)
+  return(options)
+}
+
+validate_paths <- function(x) {
+  stopifnot(
+    dir.exists(here::here(x$raw_base_dir)),
+    dir.exists(here::here(x$interim_base_dir)),
+    dir.exists(here::here(x$processed_base_dir))
+  )
 }
 
 #' Set up a default project structure
@@ -64,6 +104,7 @@ print.glades <- function(x, ...) {
   str(x)
 }
 
+#' Create a collection of items manually
 #' @export
 create_items <- function(name, path, ...) {
   stopifnot(is.character(name))
@@ -86,22 +127,67 @@ create_items <- function(name, path, ...) {
   return(structure(unlisted, class = "items"))
 }
 
+#' Import *only* the collection options from a  json config file
+#' @export
+import_items <- function(file) {
+  stopifnot(is.character(file))
+  stopifnot(file.exists(file))
+  items <- jsonlite::fromJSON(file)
+  return(structure(items, class = "json_items"))
+}
+
+#' Collect items into a glades object
 #' @export
 collect <- function(x, ...) {
   UseMethod("collect")
 }
 
 #' @export
-collect.glades <- function(x, items) {
-  stopifnot(inherits(items, "items"))
+collect.json_items <- function(items, glades) {
+  stopifnot(inherits(glades, "glades"))
+  items <- structure(items$collection, class = "items")
+  collect(items, glades)
+}
+
+#' @export
+collect.items <- function(items, glades) {
+  stopifnot(inherits(glades, "glades"))
   for (item_name in names(items)) {
     # if item name already exists
-    if (item_name %in% names(x$collection)) {
+    if (item_name %in% names(glades$collection)) {
       cat("item name already exists in collection; skipping\n")
       next
     }
-    x$collection[[item_name]] <- items[[item_name]]
+    glades$collection[[item_name]] <- items[[item_name]]
   }
   # return(structure(x, class = "glades"))
+  return(glades)
+}
+
+#' Validate item paths
+#' @export
+validate_items <- function(x) {
+  stopifnot(inherits(x, "glades"))
+  stopifnot(all(
+    sapply(x$collection, function(item) {
+      file.exists(item$path)
+    })
+  ))
+  return(x)
+}
+
+normalise_dir_paths <- function(x) {
+  stopifnot(inherits(x, "glades"))
+  x$raw_base_dir <- here::here(x$raw_base_dir)
+  x$interim_base_dir <- here::here(x$interim_base_dir)
+  x$processed_base_dir <- here::here(x$processed_base_dir)
+  return(x)
+}
+
+normalise_collection_paths <- function(x) {
+  stopifnot(inherits(x, "glades"))
+  for (i in seq_along(x$collection)) {
+    x$collection[[i]]$path <- here::here(x$collection[[i]]$path)
+  }
   return(x)
 }

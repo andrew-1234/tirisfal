@@ -1,13 +1,10 @@
 describe("project_options", {
-  it("creates a project_options object", {
-    dir <- create_local_project()
-    print(dir)
-    options <- project_options(setup = TRUE)
+  dir <- create_local_project()
+  options <- project_options(setup = TRUE)
+  it("creates a valid project_options object", {
     expect_s3_class(options, "glades")
   })
   it("setup=TRUE creates the directory structure", {
-    dir <- create_local_project()
-    options <- project_options(setup = TRUE)
     expect_true(all(
       dir.exists(paths = c(
         dir,
@@ -16,5 +13,16 @@ describe("project_options", {
         options$processed_base_dir
       ))
     ))
+  })
+})
+
+describe("import json options", {
+  # print file tree
+  print(fs::dir_tree(testthat::test_path("test-project")))
+  options <- import_options(
+    file = testthat::test_path("test-project", "config.json"), setup = FALSE
+  )
+  it("creates a valid project_options object", {
+    expect_s3_class(options, "glades")
   })
 })

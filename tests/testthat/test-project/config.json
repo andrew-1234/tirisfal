@@ -1,0 +1,23 @@
+{
+  "raw_base_dir": "./data/raw",
+  "interim_base_dir": "./data/interim",
+  "processed_base_dir": "./outputs/processed",
+  "collection": {
+    "raster_4326": {
+      "path": "./data/raw/test-raster.tif",
+      "type": "rater"
+    },
+    "shape_4326": {
+      "path": "./data/raw/test-vector.json",
+      "type": "vector"
+    },
+    "points_4326": {
+      "path": "./data/raw/test-points.json",
+      "type": "point"
+    },
+    "frog_data": {
+      "path": "./data/raw/test-df.csv",
+      "type": "data.frame"
+    }
+  }
+}
