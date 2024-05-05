@@ -2,10 +2,10 @@
 % Please edit documentation in R/config.R
 \name{import_options}
 \alias{import_options}
-\title{Import complete project options from a json file}
+\title{Import complete project options config from a json file}
 \usage{
 import_options(file, setup = FALSE)
 }
 \description{
-Import complete project options from a json file
+Import complete project options config from a json file
 }

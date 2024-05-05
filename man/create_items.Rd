@@ -2,10 +2,10 @@
 % Please edit documentation in R/config.R
 \name{create_items}
 \alias{create_items}
-\title{Create an items config manually}
+\title{Create a collection of items manually}
 \usage{
 create_items(name, path, ...)
 }
 \description{
-Create an items config manually
+Create a collection of items manually
 }

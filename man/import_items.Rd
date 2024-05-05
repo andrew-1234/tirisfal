@@ -2,10 +2,10 @@
 % Please edit documentation in R/config.R
 \name{import_items}
 \alias{import_items}
-\title{Import items config json file}
+\title{Import \emph{only} the collection options from a  json config file}
 \usage{
 import_items(file)
 }
 \description{
-Import items config json file
+Import \emph{only} the collection options from a  json config file
 }
