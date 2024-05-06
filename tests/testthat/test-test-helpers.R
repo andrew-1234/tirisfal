@@ -1,23 +1,18 @@
 describe("create_test_files_spatial works", {
+  dir <- set_test_project(dir = testthat::test_path("test-project"))
   objects <- create_test_files(
-    dir = testthat::test_path("test-project")
+    dir = "."
   )
 
   it("creates all specified test spatial files", {
     expect_true(file.exists(
-      file.path(
-        testthat::test_path("test-project"), "data/raw/test-raster.tif"
-      )
+      file.path("data/raw/test-raster.tif")
     ))
     expect_true(file.exists(
-      file.path(
-        testthat::test_path("test-project"), "data/raw/test-vector.json"
-      )
+      file.path("data/raw/test-vector.json")
     ))
     expect_true(file.exists(
-      file.path(
-        testthat::test_path("test-project"), "data/raw/test-points.json"
-      )
+      file.path("data/raw/test-points.json")
     ))
   })
 

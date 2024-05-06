@@ -24,7 +24,7 @@ set_test_project <- function(
 
 # Create test files for spatial data
 create_test_files <- function(
-    dir = testthat::test_path("test-project"),
+    dir = ".",
     env = parent.frame()) {
   raw_path <- file.path(dir, "data/raw")
   test_raster <- file.path(raw_path, "test-raster.tif")
