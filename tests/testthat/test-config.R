@@ -18,7 +18,6 @@ describe("project_options", {
 })
 
 describe("import json options", {
-  # print file tree
   options <- import_options(
     file = testthat::test_path("test-project", "config.json"), setup = FALSE
   )

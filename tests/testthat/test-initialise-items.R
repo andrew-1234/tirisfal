@@ -1,7 +1,8 @@
 describe("initialise-items", {
-  dir <- set_test_project(dir = testthat::test_path("test-project"))
+  set_test_project(dir = testthat::test_path("test-project"))
+  dir <- "."
   config <- import_options("./config.json", setup = FALSE)
-  objects <- create_test_files(dir = ".")
+  objects <- create_test_files(dir)
 
   it("initialises the data.frame into the slot frog_data$object", {
     config <- initialise_items(config)
