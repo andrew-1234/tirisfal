@@ -1,4 +1,4 @@
-craft_items <- function(config) {
+initialise_items <- function(config) {
   stopifnot(inherits(config, "glades"))
   config$collection <- lapply(config$collection, function(x) {
     x[["object"]] <- read_switch(x$path)
