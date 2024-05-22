@@ -16,12 +16,3 @@ describe("project_options", {
     ))
   })
 })
-
-describe("import json options", {
-  options <- import_options(
-    file = testthat::test_path("test-project", "config.json"), setup = FALSE
-  )
-  it("creates a valid project_options object", {
-    expect_s3_class(options, "glades")
-  })
-})

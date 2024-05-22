@@ -72,9 +72,9 @@ import_options <- function(file, setup = FALSE) {
 
 validate_paths <- function(x) {
   stopifnot(
-    dir.exists(here::here(x$raw_base_dir)),
-    dir.exists(here::here(x$interim_base_dir)),
-    dir.exists(here::here(x$processed_base_dir))
+    dir.exists(x$raw_base_dir),
+    dir.exists(x$interim_base_dir),
+    dir.exists(x$processed_base_dir)
   )
 }
 
